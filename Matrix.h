@@ -6,12 +6,13 @@
 class Matrix
 {
 public:
-	Matrix() = default;
+	Matrix();
 	Matrix(const int& size);
-	Matrix(const int* values, const int& size);
+	Matrix(const Matrix& other);
 	~Matrix();
 
 	void serial_floyd();
+	static int min(const int& a, const int& b);
 
 	void random_data_initialization();
 
@@ -21,8 +22,7 @@ public:
 
 	void set_output_wide(const int& outputWide);
 
-	Matrix(const Matrix& matrix);
-
+	Matrix& operator=(const Matrix& other);
 	bool operator==(const Matrix& other);
 	int& operator[](const int& index) const;
 	Matrix& operator+=(const Matrix& other);
@@ -30,8 +30,6 @@ public:
 	friend std::ostream& operator<< (std::ostream& out, const Matrix& matrix);
 
 private:
-	int min(const int& a, const int& b);
-
 	int size;
 	int* values;
 

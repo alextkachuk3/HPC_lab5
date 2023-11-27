@@ -1,23 +1,28 @@
 #include "Matrix.h"
 
 const double Matrix::infinities_percent = 50.0;
-const int Matrix::default_output_wide = 10.0;
+const int Matrix::default_output_wide = 10;
+
+Matrix::Matrix()
+{
+	outputWide = default_output_wide;
+	size = 0;
+	values = new int[size] {};
+}
 
 Matrix::Matrix(const int& size)
 {
 	outputWide = default_output_wide;
-
 	this->size = size;
-
-	values = new int[size * size] {0};
+	values = new int[size * size] {};
 }
 
-Matrix::Matrix(const int* values, const int& size)
+Matrix::Matrix(const Matrix& other)
 {
-	this->values = new int[size * size];
-	this->size = size;
-	this->outputWide = default_output_wide;
-	memcpy_s(this->values, this->size * this->size * sizeof(int), values, size * size * sizeof(int));
+	size = other.size;
+	values = new int[size * size];	
+	memcpy_s(values, size * size * sizeof(int), other.values, other.size * other.size * sizeof(int));
+	outputWide = other.outputWide;
 }
 
 Matrix::~Matrix()
@@ -34,8 +39,8 @@ void Matrix::serial_floyd()
 		{
 			for (int j = 0; j < size; j++)
 			{
-				if ((values[i * size + k] != -1) &&
-					(values[k * size + j] != -1)) {
+				if ((values[i * size + k] != -1) && (values[k * size + j] != -1))
+				{
 					t1 = values[i * size + j];
 					t2 = values[i * size + k] + values[k * size + j];
 					values[i * size + j] = min(t1, t2);
@@ -101,12 +106,18 @@ void Matrix::set_output_wide(const int& outputWide)
 	this->outputWide = outputWide;
 }
 
-Matrix::Matrix(const Matrix& matrix)
+Matrix& Matrix::operator=(const Matrix& other)
 {
-	values = new int[matrix.size * matrix.size];
-	size = matrix.size;
-	memcpy_s(values, size * size * sizeof(size), matrix.values, matrix.size * matrix.size * sizeof(size));
-	outputWide = matrix.outputWide;
+	if (this == &other)
+	{
+		return *this;
+	}
+
+	size = other.size;
+	values = new int[size * size];
+	memcpy_s(values, size * sizeof(double), other.values, other.size * sizeof(double));
+	outputWide = other.outputWide;
+	return *this;
 }
 
 bool Matrix::operator==(const Matrix& other)

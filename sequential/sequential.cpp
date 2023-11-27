@@ -12,6 +12,8 @@ void test_sequential_floyd_solving(const int& size)
 	Matrix matrix(size);
 	matrix.random_data_initialization();
 
+	std::cout << "The number of vertices: " << size << std::endl;
+
 	if (print_values)
 	{
 		int outputWide = 10;
@@ -30,10 +32,9 @@ void test_sequential_floyd_solving(const int& size)
 
 	if (print_values)
 	{
-		std::cout << "The matrix after Floyd algorithm:" << std::endl << matrix;
+		std::cout << "The matrix after sequential Floyd algorithm:" << std::endl << matrix;
 	}
 
-	std::cout << "Number of vertices: " << size << std::endl;
 	std::cout << "Time of execution: " << std::fixed << std::setprecision(12) << duration << std::endl << std::endl;
 }
 
@@ -57,7 +58,7 @@ int main(int argc, char* argv[])
 	{
 		int evaluation_sizes[] = { 10, 500, 600, 700, 800, 900, 1000 };
 
-		for (int i = 0; i < sizeof(evaluation_sizes) / sizeof(size_t); i++)
+		for (int i = 0; i < sizeof(evaluation_sizes) / sizeof(int); i++)
 		{
 			test_sequential_floyd_solving(evaluation_sizes[i]);
 		}
