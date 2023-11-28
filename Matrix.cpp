@@ -115,7 +115,7 @@ Matrix& Matrix::operator=(const Matrix& other)
 
 	size = other.size;
 	values = new int[size * size];
-	memcpy_s(values, size * sizeof(double), other.values, other.size * sizeof(double));
+	memcpy_s(values, size * size * sizeof(int), other.values, other.size * other.size * sizeof(int));
 	outputWide = other.outputWide;
 	return *this;
 }

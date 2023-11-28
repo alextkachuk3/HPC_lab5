@@ -25,7 +25,7 @@ void test_sorting(HPC& hpc, const int& size)
 
 	auto start = std::chrono::high_resolution_clock::now();
 
-	hpc;
+	hpc.parallel_floyd();
 
 	auto finish = std::chrono::high_resolution_clock::now();
 
@@ -97,12 +97,12 @@ int main(int argc, char* argv[])
 		{
 			for (int i = 0; i < sizeof(evaluation_sizes) / sizeof(int); i++)
 			{
-				hpc;
+				hpc.parallel_floyd();
 			}
 		}
 		else
 		{
-			hpc;
+			hpc.parallel_floyd();
 		}
 	}
 
